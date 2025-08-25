@@ -2,6 +2,9 @@ import express from 'express'
 import path from 'path'
 import  { dirname } from 'path'
 import { fileURLToPath } from 'url'
+import 'dotenv/config';
+import sequelize from './db.js'
+import authRoutes from './routes/auth.js'
 
 const app = express()
 const PORT = process.env.PORT || 8383;
@@ -31,6 +34,20 @@ app.get('/signin', (req, res) => {
     res.sendFile(path.join(__dirname, '../static/signin.html'))
 })
 
-app.listen(PORT, () => {
-    console.log("The server has started ");
-})
+//authentication routes for any requests to /api/auth
+app.use('/api/auth', authRoutes);
+
+
+
+const startServer = async () => {
+  try {
+    // This creates the tables if they don't exist
+    await sequelize.sync();
+    console.log('Database synced successfully.');
+    app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+};
+
+startServer();
