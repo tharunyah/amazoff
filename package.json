@@ -2,8 +2,9 @@
   "name": "amazoff",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "node --watch --env-file=.env --experimental-strip-types --experimental-sqlite ./source/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
@@ -20,7 +21,12 @@
   "homepage": "https://github.com/Sushanthbhat23/amazoff#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
